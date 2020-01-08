@@ -2,9 +2,8 @@
 
 @section('content')
 
-    <h1>タスク一覧</h1>
-
     @if (Auth::check())
+        <h1>タスク一覧</h1>
         <div class="row">
             <aside class="col-sm-2">
                 <div class="card">
@@ -54,8 +53,8 @@
     @else
         <div class="center jumbotron">
             <div class="text-center">
-                <h1>Welcome to the Tasks</h1>
-                {!! link_to_route('signup.get', 'Sign up now!', [], ['class' => 'btn btn-lg btn-primary']) !!}
+                <h1>タスクを確認しよう</h1>
+                {!! link_to_route('signup.get', '登録してない場合はこちら', [], ['class' => 'btn btn-lg btn-outline-secondary']) !!}
             </div>
         </div>
     @endif
