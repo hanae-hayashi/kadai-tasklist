@@ -25,15 +25,15 @@ class TasksController extends Controller
                 'user' => $user,
                 'tasks' => $tasks,
             ];
+            
+            return view('tasks.index', $data);
+            
+        } else {
+            return view('tasks.index', [
+                'tasks' => $tasks,
+            ]);
         }
         
-        // return view('welcome', $data);
-        
-        return view('tasks.index', $data);
-
-        // return view('tasks.index', [
-        //     'tasks' => $tasks,
-        // ]);
     }
 
     /**
@@ -68,14 +68,6 @@ class TasksController extends Controller
             'content' => $request->content,
         ]);
 
-
-        // return back();
-        
-        // $task = new Task;
-        // $task->status = $request->status;
-        // $task->content = $request->content;
-        // $task->save();
-
         return redirect('/');
     }
 
@@ -88,10 +80,16 @@ class TasksController extends Controller
     public function show($id)
     {
         $task = Task::find($id);
-
-        return view('tasks.show', [
-            'task' => $task,
-        ]);
+        
+        if(\Auth::id() == $task->user_id) {
+            
+    
+            return view('tasks.show', [
+                'task' => $task,
+            ]);
+        } else {
+            return redirect('/');
+        }
     }
 
     /**
@@ -104,9 +102,14 @@ class TasksController extends Controller
     {
         $task = Task::find($id);
 
-        return view('tasks.edit', [
-            'task' => $task,
-        ]);
+        if(\Auth::id() == $task->user_id) {
+    
+            return view('tasks.edit', [
+                'task' => $task,
+            ]);
+        } else {
+            return redirect('/');
+        }
     }
 
     /**
@@ -146,10 +149,5 @@ class TasksController extends Controller
         }
 
         return back();
-        
-        // $task = task::find($id);
-        // $task->delete();
-
-        // return redirect('/');
     }
 }
