@@ -15,12 +15,12 @@
                         <img class="rounded img-fluid" src="{{ Gravatar::src(Auth::user()->email, 100) }}" alt="">
                     </div>
                 </div>
+                 {!! link_to_route('tasks.create', '新規タスクの投稿', [], ['class' => 'btn btn-outline-secondary mt-3 mb-3']) !!}
             </aside>
             
             <div class="col-sm-8">
-                {!! link_to_route('tasks.create', '新規タスクの投稿', [], ['class' => 'btn btn-outline-secondary mt-3 mb-3']) !!}
                 @if (count($tasks) > 0)
-                    <table class="table table-striped">
+                    <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>id</th>
@@ -51,29 +51,6 @@
             </div>
          </div>
          
-     @else
-         
-        @if (count($tasks) > 0)
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>ステータス</th>
-                        <th>タスク</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($tasks as $task)
-                    <tr>
-                        <td>{{ $task->id }}</td>
-                        <td>{{ $task->status }}</td>
-                        <td>{{ $task->content }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @endif
-        
     @endif
     
 @endsection
